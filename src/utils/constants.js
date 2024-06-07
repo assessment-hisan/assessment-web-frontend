@@ -1,4 +1,4 @@
-export  const BASE_URL = "http://localhost:8000"
+// export  const BASE_URL = "http://localhost:8000"
 export const firebaseConfig = {
     apiKey: "AIzaSyAqWgLyYk616GDGINz5-s_Oc-Yj6rWJu8I",
     authDomain: "hisan-55068.firebaseapp.com",

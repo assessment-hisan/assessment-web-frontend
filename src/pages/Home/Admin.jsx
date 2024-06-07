@@ -263,7 +263,7 @@ const Admin = () => {
           }
         }}
         contentLabel=""
-        className="md:w-[40%] w-[80%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 mb-5"
+        className="md:w-[40%] w-[85%] max-h-3/4 bg-white rounded-md mx-auto mt-14 p-5 mb-5"
       >
         <AddEditNote
           type={openAddEditModal.type}
