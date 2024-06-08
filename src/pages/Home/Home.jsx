@@ -96,6 +96,7 @@ const Home = () => {
               tags={item.tags}
               imageUrls={item.imageUrls}
               isPinned={item.isPinned}
+              isValuated={item.valuated}
               onEdit={() => handleEdit(item)}
               onDelete={() => handleDelete(item)}
               onPinNote={() => {}}

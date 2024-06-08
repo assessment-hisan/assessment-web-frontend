@@ -27,7 +27,6 @@ const Admin = () => {
   const [categories] = useState([
     "category-1", "category-2", "category-3", "category-4"
   ]);
-  const [selectedUser, setSelectedUser] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showValuated, setShowValuated] = useState(false);
   const [dateValue, setDateValue] = useState({ 
@@ -76,7 +75,8 @@ const Admin = () => {
       const response = await axiosInstance.get("/get-all-users");
       if (response.data && response.data.users) {
         console.log("Users fetched:", response.data.users);
-        setOptions(response.data.users);
+        const nonAdminUsers = response.data.users.filter(user => !user.isAdmin);
+        setOptions(nonAdminUsers);
       }
     } catch (error) {
       console.log(error);
@@ -99,7 +99,6 @@ const Admin = () => {
 
   const handleUserChange = (e) => {
     const userId = e.target.value;
-    setSelectedUser(userId);
     onSearchNotesByUser(userId);
   };
 
@@ -135,7 +134,6 @@ const Admin = () => {
     setFilteredNotes(filteredByDate);
   };
 
-
   const valuateNote = async (data) => {
     try {
       if (!data || !data._id) {
@@ -147,7 +145,9 @@ const Admin = () => {
   
       if (response.status === 200) {
         console.log("Note successfully valuated");
-        getAllNotes(); // Refresh notes
+        await getAllNotes(); // Refresh notes
+        // Retain filters
+        filterNotes(selectedCategory, notes, dateValue);
         setOpenAddEditModal({ isShown: false, type: "add", data: null }); // Close modal
       }
     } catch (error) {
@@ -182,7 +182,7 @@ const Admin = () => {
                 defaultValue=""
                 className="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 text-slate-900"
               >
-                <option value="" disabled hidden>
+                <option value=""  >
                   Select a user
                 </option>
                 {options.map((option, index) => (
@@ -200,7 +200,7 @@ const Admin = () => {
                 defaultValue=""
                 className="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 text-slate-900"
               >
-                <option value="" disabled hidden>
+                <option value="" >
                   Select a category
                 </option>
                 {categories.map((category, index) => (
@@ -272,13 +272,19 @@ const Admin = () => {
           onClose={() => setOpenAddEditModal({ isShown: false, type: "add", data: null })}
           userInfo={userInfo}
         />
-         <section className="flex justify-center items-center">
-          <button
-            className="w-full px-4 py-2 bg-green-500 text-white rounded "
-            onClick={()=>valuateNote(openAddEditModal.data)}
-          >
-            Valuate Note
-          </button>
+        <section className="flex justify-center items-center mt-4">
+          {openAddEditModal.data?.valuated ? (
+            <div className="w-full px-4 py-2 bg-green-100 text-green-700 border border-green-300 rounded">
+              This note has been valuated.
+            </div>
+          ) : (
+            <button
+              className="w-full px-4 py-2 bg-green-500 text-white rounded"
+              onClick={() => valuateNote(openAddEditModal.data)}
+            >
+              Valuate Note
+            </button>
+          )}
         </section>
       </Modal>
     </>
