@@ -43,7 +43,7 @@ const NoteCard = ({
         <div className="flex items-center gap-2">
         
           <MdCreate className="icon-btn hover:text-green-600" onClick={onEdit} />
-          {!userInfo?.isAdmin && (
+          {!userInfo?.isAdmin && !isValuated && (
             <MdDelete
               className="icon-btn hover:text-red-500"
               onClick={onDelete}
