@@ -108,10 +108,10 @@ const AddEditNote = ({ noteData, type, getAllNotes, onClose, userInfo }) => {
           <option value="" disabled hidden>
             Select a category
           </option>
-          <option value="category-1">Category 1</option>
-          <option value="category-2">Category 2</option>
+          <option value="SRSA">SRSA</option>
+          <option value="LSRW">LSRW</option>
           <option value="category-3">Category 3</option>
-          <option value="category-4">Category 4</option>
+          <option value="others">others</option>
         </select>}
         {userInfo?.isAdmin && <input className="mt-2" disabled value={category}/>}
       </div>

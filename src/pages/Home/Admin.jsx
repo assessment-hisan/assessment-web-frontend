@@ -25,7 +25,7 @@ const Admin = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [options, setOptions] = useState([]);
   const [categories] = useState([
-    "category-1", "category-2", "category-3", "category-4"
+    "SRSA", "LSRW", "category-3", "others"
   ]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showValuated, setShowValuated] = useState(false);
