@@ -38,10 +38,11 @@ const Login =  () => {
       //Handle seccesfull login response
       if (response.data) {
           localStorage.setItem("token", response.data.accessToken)
-          if (!response.data.isAdmin) {
-            navigate("/dashboard")
+          
+          if (!response.data.isAdmin ) {
+            navigate("/")
           }else {
-            navigate("/admin-dashboard")
+            navigate("/admin")
           }
       }
     } catch (error) {
@@ -76,7 +77,7 @@ const Login =  () => {
 
           {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
 
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="btn-primary" onClick={handleLogin}>
             Login
           </button>
         </form>

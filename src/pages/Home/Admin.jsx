@@ -23,7 +23,8 @@ const Admin = () => {
     nonValuated: []
   });
   const [userInfo, setUserInfo] = useState(null);
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState([])
+  
   const [categories] = useState([
     "SRSA", "LSRW", "category-3", "others"
   ]);
