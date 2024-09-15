@@ -11,7 +11,6 @@ import Loader from "./components/Ui/Loader";// Import the loader
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -21,9 +20,8 @@ const App = () => {
           // Fetch user details to check if the user is admin or not
           const response = await axiosInstance.get("/get-user");
           if (response.status === 200) {
-            const userDetails = response.data;
             setIsAuthenticated(true);
-            setIsAdmin(userDetails.Admin); // Check if the user is admin
+        // Check if the user is admin
           }
         }
       } catch (error) {
