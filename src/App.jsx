@@ -1,52 +1,44 @@
-import  { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
-import axiosInstance from "./utils/axiosInstance";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import axiosInstance from "./utils/axiosInstance"; // Import axios instance
 import Home from "./pages/Home/Home";
-import Admin from "./pages/Home/Admin";
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 import Index from "./pages/Index/index";
-import Loader from "./components/Ui/Loader";// Import the loader
+import Admin from "./pages/Home/Admin";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Check authentication status when the app loads
   useEffect(() => {
-    const fetchUserDetails = async () => {
+    const checkAuth = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          // Fetch user details to check if the user is admin or not
-          const response = await axiosInstance.get("/get-user");
-          if (response.status === 200) {
-            setIsAuthenticated(true);
-        // Check if the user is admin
-          }
+        const response = await axiosInstance.get("/auth/verify-token"); // Example endpoint
+        if (response.status === 200) {
+          setIsAuthenticated(true);
         }
       } catch (error) {
-        console.error("Error fetching user details:", error);
         setIsAuthenticated(false);
+        console.error("Authentication failed", error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchUserDetails();
+    checkAuth();
   }, []);
 
   if (loading) {
-    return <Loader />; // Show loader while fetching user data
+    return <div>Loading...</div>; // Loading state while checking auth
   }
 
   return (
     <Router>
       <Routes>
-        {/* If authenticated, show Admin or Home based on the user role, else show Index */}
-        <Route path="/" element={isAuthenticated ?  <Home />: <Index />} />
-        <Route path="/admin" element={isAuthenticated ? <Admin/> : <Index/>} />
-        {/* Auth routes */}
-        <Route path="/login" element={ <Login />} />
+        <Route path="/" element={isAuthenticated ? <Home/> : <Index />} />
+        <Route path="/admin-dashboard" element={ <Admin />} />
+        <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={ <SignUp />} />
       </Routes>
     </Router>
