@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const Index = () => {
+const index = () => {
   return (
     <>
     <div className="bg-gray-300 flex items-center justify-between px-6 py-2 drop-shadow">
@@ -24,4 +24,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default index
