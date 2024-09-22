@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
-import Index from "./pages/Index/Index";
+import Index from "./pages/Index/index";
 import Admin from "./pages/Home/Admin";
 
 const App = () => {
