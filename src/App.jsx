@@ -17,7 +17,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={isAuthenticated() ? <Home/> : <Index/>} />
-        <Route path="/admin-dashboard" element={ <Admin/>} />
+        <Route path="/admin" element={ <Admin/>} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={ <SignUp/>} />
       </Routes>
